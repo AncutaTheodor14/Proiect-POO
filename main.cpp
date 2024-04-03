@@ -1,5 +1,7 @@
 #include<iostream>
 #include<vector>
+#include<string>
+#include<algorithm>
 
 class Jucator {
     std::string Nume, Pozitie;
@@ -51,10 +53,6 @@ public:
 
     void adauga_assisturi(int nrassisturi) {
         NrAssisturi += nrassisturi;
-    }
-
-    void Skill_Jucator() {
-        SkillGeneral += NrGoluri / 5 + NrAssisturi / 7;
     }
 
     void antreneaza() {
@@ -114,7 +112,7 @@ public:
         return jucatori;
     }
 
-    void transfer_la_echipa(Echipa &team, Jucator &j1) {
+    void transfer_la_echipa(const Echipa &team, Jucator &j1) {
         jucatori.push_back(j1);
         j1.change_team(team.get_num());
     }
@@ -148,8 +146,7 @@ class Meci {
     std::vector<std::pair<Jucator, Jucator>> FazaGol;
 public:
     Meci(Echipa &gazda, Echipa &oaspete, const std::string &dataMeci) : Gazda(gazda), Oaspete(oaspete),
-                                                                        DataMeci(dataMeci) {
-        Locatie = gazda.get_arena();
+                                                                        DataMeci(dataMeci), Locatie{Gazda.get_arena()} {
         ScorGazde = 0;
         ScorOaspeti = 0;
         Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);
@@ -224,10 +221,6 @@ public:
         }
     }
 
-    std::string get_rez() const {
-        return Rezultat;
-    }
-
     std::vector<std::pair<Jucator, Jucator>> &afisez() {
         return FazaGol;
     }
@@ -239,9 +232,9 @@ class Campionat_Liga_Nationala_sezon_2023_2024_masculin {
     std::vector<Meci> meciuri;
 public:
     Campionat_Liga_Nationala_sezon_2023_2024_masculin(int nrechipe, int nretape) : NrEchipe{nrechipe},
-                                                                                   NrEtape{nretape} {
-        echipe = {};
-        meciuri = {};
+                                                                                   NrEtape{nretape},
+                                                                                   echipe{},
+                                                                                   meciuri{} {
     }
 
     Campionat_Liga_Nationala_sezon_2023_2024_masculin(const Campionat_Liga_Nationala_sezon_2023_2024_masculin &other)
@@ -267,10 +260,6 @@ public:
 
     void adaug_echipa(Echipa &ech) {
         echipe.push_back(ech);
-    }
-
-    void adaug_meci(Meci &game) {
-        meciuri.push_back(game);
     }
 };
 

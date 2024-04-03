@@ -71,7 +71,7 @@ public:
     Echipa(const std::string &nume_e, const std::string &nume_a, const std::string &nume_ar, int NrPct) : NumeEchipa{
             nume_e}, NumeAntrenor{nume_a}, NumeArenaProprie{nume_ar} {
         jucatori.clear();
-        NrPuncte = 0;
+        NrPuncte = NrPct;
     }
 
     Echipa(const Echipa &other) : NumeEchipa{other.NumeEchipa}, NumeAntrenor{other.NumeAntrenor},
@@ -121,7 +121,7 @@ public:
 
     void transfer_de_la_echipa(Jucator &j1) {
         int poz = -1;
-        for (int i = 0; i < jucatori.size(); i++) {
+        for (unsigned int i = 0; i < jucatori.size(); i++) {
             if (jucatori[i].getName() == j1.getName())
                 poz = i;
         }

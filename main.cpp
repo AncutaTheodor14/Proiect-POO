@@ -207,7 +207,7 @@ public:
         Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);
     }
 
-    std::string verifica_castigator(Echipa &Gazda, Echipa &Oaspete) {
+    std::string verifica_castigator() {
         if (ScorGazde > ScorOaspeti) {
             Gazda.get_castig(3);
             return Gazda.get_num();
@@ -288,7 +288,7 @@ int main() {
     meci1.adauga_faza_gol(jucator2, jucator4);
     meci1.adauga_faza_gol(jucator4, jucator2);
     std::cout << "Detalii final meci: " << meci1 << '\n';
-    std::cout << "Echipa castigatoare: " << meci1.verifica_castigator(echipa1, echipa2) << '\n' << '\n';
+    std::cout << "Echipa castigatoare: " << meci1.verifica_castigator() << '\n' << '\n';
     std::cout << "Istoric marcatori:" << '\n';
     for (auto &it: meci1.afisez())
         std::cout << "Marcheaza " << it.first.getName() << " din pasa lui " << it.second.getName() << '\n';

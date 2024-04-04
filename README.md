@@ -1,4 +1,4 @@
-GameAlert
+# GameAlert
 
 Proiectul simulează meciurile dintr-un campionat de handbal, păstrând istoricul fiecăruia si realizând
 un clasament în funcție de numărul de puncte acumulate de fiecare echipă.

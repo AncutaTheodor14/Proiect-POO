@@ -226,22 +226,22 @@ public:
     }
 };
 
-class Campionat_Liga_Nationala_sezon_2023_2024_masculin {
+class Campionat_Liga_Nationala {
     int NrEchipe, NrEtape;
     std::vector<Echipa> echipe;
     std::vector<Meci> meciuri;
 public:
-    Campionat_Liga_Nationala_sezon_2023_2024_masculin(int nrechipe, int nretape) : NrEchipe{nrechipe},
+    Campionat_Liga_Nationala(int nrechipe, int nretape) : NrEchipe{nrechipe},
                                                                                    NrEtape{nretape},
                                                                                    echipe{},
                                                                                    meciuri{} {
     }
 
-    Campionat_Liga_Nationala_sezon_2023_2024_masculin(const Campionat_Liga_Nationala_sezon_2023_2024_masculin &other)
+    Campionat_Liga_Nationala(const Campionat_Liga_Nationala &other)
             : NrEchipe{other.NrEchipe}, NrEtape{other.NrEtape}, echipe{other.echipe}, meciuri{other.meciuri} {}
 
-    Campionat_Liga_Nationala_sezon_2023_2024_masculin &
-    operator=(const Campionat_Liga_Nationala_sezon_2023_2024_masculin &other) {
+    Campionat_Liga_Nationala &
+    operator=(const Campionat_Liga_Nationala &other) {
         NrEchipe = other.NrEchipe;
         NrEtape = other.NrEtape;
         echipe = other.echipe;
@@ -249,9 +249,9 @@ public:
         return *this;
     }
 
-    ~Campionat_Liga_Nationala_sezon_2023_2024_masculin() {}
+    ~Campionat_Liga_Nationala() {}
 
-    friend std::ostream &operator<<(std::ostream &os, const Campionat_Liga_Nationala_sezon_2023_2024_masculin &m) {
+    friend std::ostream &operator<<(std::ostream &os, const Campionat_Liga_Nationala &m) {
         os << "NrEchipe: " << m.NrEchipe << ", NrEtape: " << m.NrEtape << '\n';
         for (auto it: m.echipe)
             os << it.get_num() << '\n';
@@ -264,7 +264,7 @@ public:
 };
 
 int main() {
-    Campionat_Liga_Nationala_sezon_2023_2024_masculin campionat(14, 28);
+    Campionat_Liga_Nationala campionat(14, 28);
     Jucator jucator1("Luka Cindric", "Playmaker", 4, 9, 99, "Dinamo");
     Jucator jucator2("Nicusor Negru", "Left Wing", 6, 8, 94, "Dinamo");
     Jucator jucator3("Vladimir Cupara", "Goalkeeper", 0, 3, 96, "Dinamo");

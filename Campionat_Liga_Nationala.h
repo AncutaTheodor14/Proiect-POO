@@ -5,7 +5,7 @@
 #ifndef OOP_CAMPIONAT_LIGA_NATIONALA_H
 #define OOP_CAMPIONAT_LIGA_NATIONALA_H
 
-
+#include<iostream>
 #include "Echipa.h"
 #include "Meci.h"
 

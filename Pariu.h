@@ -5,6 +5,7 @@
 #ifndef OOP_PARIU_H
 #define OOP_PARIU_H
 
+#include<iostream>
 #include<string>
 
 class Pariu {

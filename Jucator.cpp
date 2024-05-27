@@ -2,6 +2,7 @@
 // Created by Theo on 5/27/2024.
 //
 
+#include<iostream>
 #include "Jucator.h"
 
 void Jucator::afisare(std::ostream &os) const {

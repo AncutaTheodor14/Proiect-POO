@@ -5,7 +5,7 @@
 #ifndef OOP_MECI_H
 #define OOP_MECI_H
 
-
+#include<iostream>
 #include <string>
 #include<vector>
 #include "Echipa.h"

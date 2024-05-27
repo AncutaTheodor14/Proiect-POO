@@ -5,6 +5,7 @@
 #ifndef OOP_ECHIPA_H
 #define OOP_ECHIPA_H
 
+#include<iostream>
 #include<vector>
 #include "Persoana.h"
 

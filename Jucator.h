@@ -5,7 +5,7 @@
 #ifndef OOP_JUCATOR_H
 #define OOP_JUCATOR_H
 
-
+#include<iostream>
 #include "Persoana.h"
 
 class Jucator : public Persoana {

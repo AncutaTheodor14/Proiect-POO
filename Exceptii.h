@@ -5,7 +5,7 @@
 #ifndef OOP_EXCEPTII_H
 #define OOP_EXCEPTII_H
 
-
+#include<iostream>
 #include <stdexcept>
 
 class eroare_aplicatie : public std::runtime_error {

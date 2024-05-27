@@ -3,6 +3,7 @@
 //
 
 #include "Antrenor.h"
+#include<iostream>
 
 Antrenor::Antrenor(const std::string &Nume, const std::string &NE, bool transf, int EA) : Persoana(Nume, NE, transf),
                                                                                           EchipeAntrenate(EA) {}

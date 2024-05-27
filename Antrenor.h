@@ -7,6 +7,7 @@
 
 
 #include "Persoana.h"
+#include<iostream>
 
 class Antrenor : public Persoana {
 public:

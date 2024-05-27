@@ -1,6 +1,7 @@
 //
 // Created by Theo on 5/27/2024.
 //
+#include<iostream>
 #include<memory>
 #include "Echipa.h"
 #include "Antrenor.h"

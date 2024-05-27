@@ -1,7 +1,6 @@
 //
 // Created by Theo on 5/27/2024.
 //
-#include<iostream>
 #include "Campionat_Liga_Nationala.h"
 #include "Echipa.h"
 #include "Meci.h"

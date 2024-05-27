@@ -26,9 +26,9 @@ void swap(Echipa &e1, Echipa &e2) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Echipa &e) {
-    os << "NumeEchipa: " << e.NumeEchipa << ", NrPuncte: " << e.NrPuncte << ", NumeArenaProprie: "
+    os << "Nume_Echipa: " << e.NumeEchipa << ", Nr_Puncte: " << e.NrPuncte << ", Nume_Arena_Proprie: "
        << e.NumeArenaProprie << ", ";
-    os << "NumeJucatori: " << '\n' << '\n';
+    os << "Nume_Jucatori: " << '\n' << '\n';
     for (const auto &mem: e.membrii)
         os << *mem << '\n';///(*mem).getName()
     return os;

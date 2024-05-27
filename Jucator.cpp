@@ -5,8 +5,8 @@
 #include "Jucator.h"
 
 void Jucator::afisare(std::ostream &os) const {
-    os << ", Rol: Jucator, " << "Pozitie: " << Pozitie << ", " << "NrGoluri: " << NrGoluri << ", "
-       << "NrAssisturi: " << NrAssisturi << ", " << "SkillGeneral: " << SkillGeneral << '\n';
+    os << ", Rol: Jucator, " << "_Pozitie: " << Pozitie << ", " << "Nr_Goluri: " << NrGoluri << ", "
+       << "Nr_Assisturi: " << NrAssisturi << ", " << "Skill_General: " << SkillGeneral << '\n';
 }
 
 Jucator::Jucator(const std::string &nume, const std::string &echipa, bool transf, const std::string &pozitie,

@@ -22,8 +22,8 @@ Meci &Meci::operator=(const Meci &other) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Meci &m) {
-    os << "Gazde: " << m.Gazda1.get_num() << ", Oaspeti: " << m.Oaspete1.get_num() << ", Rezultat: " << m.Rezultat
-       << ", DataMeci: " << m.DataMeci << ", Locatie: " << m.Locatie << '\n';
+    os << "Gazde: " << m.Gazda1.get_num() << ", Oaspeti: " << m.Oaspete1.get_num() << ", _Rezultat: " << m.Rezultat
+       << ", Data_Meci: " << m.DataMeci << ", _Locatie: " << m.Locatie << '\n';
     return os;
 }
 

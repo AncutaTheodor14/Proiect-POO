@@ -24,7 +24,7 @@ Campionat_Liga_Nationala &Campionat_Liga_Nationala::operator=(const Campionat_Li
 }
 
 std::ostream &operator<<(std::ostream &os, const Campionat_Liga_Nationala &m) {
-    os << "NrEchipe: " << m.NrEchipe << ", NrEtape: " << m.NrEtape << '\n';
+    os << "Nr_Echipe: " << m.NrEchipe << ", Nr_Etape: " << m.NrEtape << '\n';
     for (auto it: m.echipe)
         os << it.get_num() << '\n';
     os << '\n';

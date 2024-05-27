@@ -200,7 +200,7 @@ public:
         return membrii;
     }
 
-    void transfer_la_echipa(Echipa &team, std::shared_ptr<Persoana> &p1) {
+    void transfer_la_echipa(const Echipa &team, std::shared_ptr<Persoana> &p1) {
         if (p1->get_status() == 0) {
             throw eroare_transfer(p1->getName());
         }
@@ -400,10 +400,6 @@ public:
         }
     }
 
-    std::string get_rez() const {
-        return Rezultat;
-    }
-
     std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> &afisez() {
         return FazaGol;
     }
@@ -462,7 +458,7 @@ int main() {
         std::cout << *p << '\n';
         Persoana *p1 = new Jucator("Luca Cindric", "Dinamo", 1, "centru", 5, 3, 1);
         std::cout << *p1 << '\n';
-        Jucator *jucator = dynamic_cast<Jucator *>(p1);
+        auto *jucator = dynamic_cast<Jucator *>(p1);
         if (jucator) {
             std::cout << jucator->getskill() << '\n';
             jucator->Skill_Jucator();

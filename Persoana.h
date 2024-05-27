@@ -12,7 +12,7 @@ private:
     std::string Nume, NumeEchipa;
     bool transferabil;
 
-    virtual void afisare(std::ostream &) const;;
+    virtual void afisare(std::ostream &) const;
 protected:
     Persoana(const Persoana &other) = default;
 

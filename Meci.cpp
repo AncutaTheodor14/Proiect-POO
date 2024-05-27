@@ -2,7 +2,6 @@
 // Created by Theo on 5/27/2024.
 //
 
-#include<iostream>
 #include "Meci.h"
 #include "Jucator.h"
 

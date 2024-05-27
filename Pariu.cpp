@@ -2,7 +2,6 @@
 // Created by Theo on 5/27/2024.
 //
 
-#include<iostream>
 #include "Pariu.h"
 
 Pariu::Pariu(const std::string &nume, const std::string &echipa, double suma, double su, bool cast)

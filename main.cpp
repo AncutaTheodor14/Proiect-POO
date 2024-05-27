@@ -87,7 +87,6 @@ public:
     std::shared_ptr<Persoana> clone() const override {
         return std::make_shared<Antrenor>(*this);
     }
-
 private:
     int EchipeAntrenate;
 
@@ -452,17 +451,17 @@ public:
 
 int main() {
     try {
-        Persoana *p = new Antrenor("Xavier Pascual", "Dinamo", 1, 3);
+        std::shared_ptr<Persoana> p = std::make_shared<Antrenor>("Xavier Pascual", "Dinamo", true, 3);
         p->change_status();
         p->change_status();
         std::cout << *p << '\n';
-        Persoana *p1 = new Jucator("Luca Cindric", "Dinamo", 1, "centru", 5, 3, 1);
+        std::shared_ptr<Persoana> p1 = std::make_shared<Jucator>("Luca Cindric", "Dinamo", 1, "centru", 5, 3, 1);
         std::cout << *p1 << '\n';
-        auto *jucator = dynamic_cast<Jucator *>(p1);
-        if (jucator) {
-            std::cout << jucator->getskill() << '\n';
-            jucator->Skill_Jucator();
-            jucator->antreneaza();
+        std::shared_ptr<Jucator> jucator1 = std::dynamic_pointer_cast<Jucator>(p1);
+        if (jucator1) {
+            std::cout << jucator1->getskill() << '\n';
+            jucator1->Skill_Jucator();
+            jucator1->antreneaza();
         } else
             std::cout << "p1 nu e Jucator" << '\n';
         Echipa e1("Dinamo", "Stefan cel Mare", 0, {Antrenor{"Xavier Pascual", "Dinamo", 1, 3}.clone(),

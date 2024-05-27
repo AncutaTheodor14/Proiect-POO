@@ -3,451 +3,16 @@
 #include<memory>
 #include<stdexcept>
 #include<indicators.hpp>
-
-class eroare_aplicatie : public std::runtime_error {
-    using std::runtime_error::runtime_error;
-};
-
-class eroare_echipa : public eroare_aplicatie {
-public:
-    explicit eroare_echipa(const std::string &Mesaj) : eroare_aplicatie("Eroare la nivelul echipei, " + Mesaj) {}
-};
-
-class eroare_transfer : public eroare_echipa {
-public:
-    explicit eroare_transfer(const std::string &Nume) : eroare_echipa(
-            "membrul echipei " + Nume + " nu se poate transfera") {}
-};
-
-class eroare_campionat : public eroare_aplicatie {
-public:
-    explicit eroare_campionat(const std::string &Mesaj) : eroare_aplicatie(
-            "Eroare la nivelul campionatului, " + Mesaj) {}
-};
-
-class eroare_numar_jucatori : public eroare_campionat {
-public:
-    explicit eroare_numar_jucatori(int numar) : eroare_campionat(
-            "echipa are in componenta " + std::to_string(numar) + " membrii") {}
-};
-
-class Persoana {
-private:
-    std::string Nume, NumeEchipa;
-    bool transferabil;
-
-    virtual void afisare(std::ostream &) const {};
-protected:
-    Persoana(const Persoana &other) = default;
-
-public:
-    Persoana &operator=(const Persoana &other) = default;
-
-    explicit Persoana(const std::string &Nume1, const std::string &NE, bool transferabil_ = true) : Nume(Nume1),
-                                                                                                    NumeEchipa(NE),
-                                                                                                    transferabil(
-                                                                                                            transferabil_) {}
-
-    virtual std::shared_ptr<Persoana> clone() const = 0;
-
-    virtual ~Persoana() = default;
-
-    friend std::ostream &operator<<(std::ostream &os, const Persoana &pers) {
-        os << pers.Nume << " este la echipa " << pers.NumeEchipa << ", transferabil = " << pers.transferabil;
-        pers.afisare(os);
-        return os;
-    }
-
-    std::string getNameTeam() const {
-        return NumeEchipa;
-    }
-
-    std::string getName() const {
-        return Nume;
-    }
-
-    void change_team(const std::string &alta_echipa) {
-        NumeEchipa = alta_echipa;
-    }
-
-    void change_status() {
-        transferabil = 1 - transferabil;
-    }
-
-    int get_status() const {
-        return transferabil;
-    }
-};
-
-class Antrenor : public Persoana {
-public:
-    explicit Antrenor(const std::string &Nume, const std::string &NE, bool transf, int EA) : Persoana(Nume, NE, transf),
-                                                                                             EchipeAntrenate(EA) {}
-
-    std::shared_ptr<Persoana> clone() const override {
-        return std::make_shared<Antrenor>(*this);
-    }
-private:
-    int EchipeAntrenate;
-
-    void afisare(std::ostream &os) const override {
-        os << ". Are rolul de antrenor si a antrenat pana acum " << EchipeAntrenate << " echipe." << '\n';
-    }
-};
-
-class Jucator : public Persoana {
-private:
-    std::string Pozitie;
-    int NrGoluri, NrAssisturi, SkillGeneral;
-
-    void afisare(std::ostream &os) const override {
-        os << ", Rol: Jucator, " << "Pozitie: " << Pozitie << ", " << "NrGoluri: " << NrGoluri << ", "
-           << "NrAssisturi: " << NrAssisturi << ", " << "SkillGeneral: " << SkillGeneral << '\n';
-    }
-
-public:
-    explicit Jucator(const std::string &nume, const std::string &echipa, bool transf, const std::string &pozitie,
-                     int nrgoluri, int nrassisturi, int skillgen) : Persoana(nume, echipa, transf), Pozitie(pozitie),
-                                                                    NrGoluri(nrgoluri), NrAssisturi(nrassisturi),
-                                                                    SkillGeneral(skillgen) {}
-
-    std::shared_ptr<Persoana> clone() const override {
-        return std::make_shared<Jucator>(*this);
-    }
-
-    int getskill() const {
-        return SkillGeneral;
-    }
-
-    void adauga_gol(int nrgoluri) {
-        NrGoluri += nrgoluri;
-    }
-
-    void adauga_assisturi(int nrassisturi) {
-        NrAssisturi += nrassisturi;
-    }
-
-    void Skill_Jucator() {
-        SkillGeneral += NrGoluri / 5 + NrAssisturi / 7;
-    }
-
-    void antreneaza() {
-        SkillGeneral += 2;
-    }
-};
-
-class Echipa {
-    static int nr_total_echipe;
-    std::string NumeEchipa, NumeArenaProprie;
-    int NrPuncte;
-    std::vector<std::shared_ptr<Persoana>> membrii;
-public:
-    Echipa(const std::string &nume_e, const std::string &nume_a, int NrPuncte_,
-           std::vector<std::shared_ptr<Persoana>> membrii_) : NumeEchipa{std::move(nume_e)},
-                                                              NumeArenaProprie{std::move(nume_a)},
-                                                              NrPuncte{std::move(NrPuncte_)},
-                                                              membrii{std::move(membrii_)} {
-        nr_total_echipe++;
-    }
-
-    Echipa(const Echipa &other) : NumeEchipa{other.NumeEchipa}, NumeArenaProprie{other.NumeArenaProprie},
-                                  NrPuncte{other.NrPuncte} {
-        for (const auto &mem: other.membrii)
-            membrii.emplace_back(mem->clone());
-    }
-
-    Echipa &operator=(Echipa other) {
-        swap(*this, other);
-        return *this;
-    }
-
-    friend void swap(Echipa &e1, Echipa &e2) {
-        std::swap(e1.NumeEchipa, e2.NumeEchipa);
-        std::swap(e1.NumeArenaProprie, e2.NumeArenaProprie);
-        std::swap(e1.NrPuncte, e2.NrPuncte);
-        std::swap(e1.membrii, e2.membrii);
-    }
-
-    ~Echipa() = default;
-
-    friend std::ostream &operator<<(std::ostream &os, const Echipa &e) {
-        os << "NumeEchipa: " << e.NumeEchipa << ", NrPuncte: " << e.NrPuncte << ", NumeArenaProprie: "
-           << e.NumeArenaProprie << ", ";
-        os << "NumeJucatori: " << '\n' << '\n';
-        for (const auto &mem: e.membrii)
-            os << *mem << '\n';///(*mem).getName()
-        return os;
-    }
-
-    static void creare_Echipa() {
-        nr_total_echipe++;
-    }
-
-    void set_castig(int x) {
-        NrPuncte += x;
-    }
-
-    std::string get_arena() const {
-        return NumeArenaProprie;
-    }
-
-    std::string get_num() const {
-        return NumeEchipa;
-    }
-
-    std::vector<std::shared_ptr<Persoana>> &get_juc() {
-        return membrii;
-    }
-
-    void transfer_la_echipa(const Echipa &team, std::shared_ptr<Persoana> &p1) {
-        if (p1->get_status() == 0) {
-            throw eroare_transfer(p1->getName());
-        }
-        std::shared_ptr<Persoana> p2;
-        p2 = p1;
-        std::shared_ptr<Jucator> jucator1 = std::dynamic_pointer_cast<Jucator>(p1);
-        if (jucator1)
-            membrii.emplace_back(jucator1);
-        else {
-            std::shared_ptr<Antrenor> antrenor1 = std::dynamic_pointer_cast<Antrenor>(p2);
-            membrii.emplace_back(antrenor1);
-        }
-        p1->change_team(team.get_num());
-    }
-
-    void transfer_de_la_echipa(std::shared_ptr<Persoana> &p1) {
-        if (p1->get_status() == 0) {
-            throw eroare_transfer("Nu se poate transfera");
-        }
-        int poz = -1;
-        for (int i = 0; i < int(membrii.size()); i++) {
-            if (membrii[i]->getName() == p1->getName())
-                poz = i;
-        }
-        if (poz > -1)
-            membrii.erase(membrii.begin() + poz);
-        std::string s = " ";
-        p1->change_team(s);
-    }
-
-    int Skill_total() {
-        int suma = 0;
-        for (const auto &membru: membrii) {
-            std::shared_ptr<Jucator> juc = std::dynamic_pointer_cast<Jucator>(membru);
-            if (juc)
-                suma += juc->getskill();
-        }
-        return suma;
-    }
-};
+#include "Echipa.h"
+#include "Persoana.h"
+#include "Antrenor.h"
+#include "Jucator.h"
+#include "Meci.h"
+#include "Pariu.h"
+#include "Campionat_Liga_Nationala.h"
+#include "Exceptii.h"
 
 int Echipa::nr_total_echipe = 0;
-
-class Pariu {
-    std::string NumeParior;
-    std::string EchipaPariata;
-    double SumaPariata = 0;
-    double sumaCastigata = 0;
-    bool castigator;
-public:
-    Pariu(const std::string &nume, const std::string &echipa, double suma, double su = 0, bool cast = false)
-            : NumeParior(nume), EchipaPariata(echipa), SumaPariata(suma), sumaCastigata(su), castigator(cast) {}
-
-    std::string getNumeParior() const {
-        return NumeParior;
-    }
-
-    void suma_Castigata(double &&x) {
-        sumaCastigata = x;
-    }
-
-    double val_suma_Castigata() const {
-        return sumaCastigata;
-    }
-
-    std::string getEchipaPariata() const {
-        return EchipaPariata;
-    }
-
-    double getSumaPariata() const {
-        return SumaPariata;
-    }
-
-    bool isCastigator() const {
-        return castigator;
-    }
-
-    void setCastigator(bool status) {
-        castigator = status;
-    }
-};
-
-class Meci {
-    Echipa &Gazda1;
-    Echipa &Oaspete1;
-    std::string Rezultat, DataMeci, Locatie;
-    int ScorGazde, ScorOaspeti;
-    std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol;
-    std::vector<Pariu> Pariuri;
-public:
-    Meci(Echipa &gazda, Echipa &oaspete, const std::string &dataMeci,
-         std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol_ = {},
-         std::vector<Pariu> Pariuri_ = {}
-    ) : Gazda1(gazda), Oaspete1(oaspete), DataMeci(dataMeci), Locatie(gazda.get_arena()),
-        FazaGol(std::move(FazaGol_)), Pariuri(std::move(Pariuri_)) {
-        ScorGazde = 0;
-        ScorOaspeti = 0;
-        Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);
-    }
-
-    Meci(const Meci &other) : Gazda1{other.Gazda1}, Oaspete1{other.Oaspete1}, Rezultat{other.Rezultat},
-                              DataMeci{other.DataMeci}, Locatie{other.Locatie}, ScorGazde{other.ScorGazde},
-                              ScorOaspeti{other.ScorOaspeti}, FazaGol{other.FazaGol}, Pariuri{other.Pariuri} {}
-
-    //Meci(const Meci& other) = default;
-    Meci &operator=(const Meci &other) {
-        Gazda1 = other.Gazda1;
-        Oaspete1 = other.Oaspete1;
-        Rezultat = other.Rezultat;
-        DataMeci = other.DataMeci;
-        Locatie = other.Locatie;
-        ScorGazde = other.ScorGazde;
-        ScorOaspeti = other.ScorOaspeti;
-        FazaGol = other.FazaGol;
-        return *this;
-    }
-
-    ~Meci() = default;
-
-    friend std::ostream &operator<<(std::ostream &os, const Meci &m) {
-        os << "Gazde: " << m.Gazda1.get_num() << ", Oaspeti: " << m.Oaspete1.get_num() << ", Rezultat: " << m.Rezultat
-           << ", DataMeci: " << m.DataMeci << ", Locatie: " << m.Locatie << '\n';
-        return os;
-    }
-
-    void adauga_faza_gol(std::shared_ptr<Persoana> &marcato, std::shared_ptr<Persoana> &pasato) {
-        std::shared_ptr<Jucator> marcator = std::dynamic_pointer_cast<Jucator>(marcato);
-        std::shared_ptr<Jucator> pasator = std::dynamic_pointer_cast<Jucator>(pasato);
-        if (marcator && pasator) {
-            FazaGol.emplace_back(std::make_pair(marcator, pasator));
-            int ok = 0;
-            for (auto &it: Gazda1.get_juc()) {
-                if (it->getName() == marcator->getName()) {
-                    marcator->adauga_gol(1);
-                    it = marcator;
-                    ok = 1;
-                    ScorGazde++;
-                } else if (it->getName() == pasator->getName()) {
-                    pasator->adauga_assisturi(1);
-                    it = pasator;
-                }
-            }
-            if (ok == 0) {
-                ScorOaspeti++;
-                for (auto &it: Oaspete1.get_juc()) {
-                    if (it->getName() == marcator->getName()) {
-                        marcator->adauga_gol(1);
-                        it = marcator;
-                    }
-                    if (it->getName() == pasator->getName()) {
-                        pasator->adauga_assisturi(1);
-                        it = pasator;
-                    }
-                }
-            }
-            Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);
-        }
-    }
-
-    std::string verifica_castigator(Echipa &gazda, Echipa &oaspete) const {
-        if (ScorGazde > ScorOaspeti) {
-            gazda.set_castig(2);
-            return gazda.get_num();
-        } else if (ScorGazde < ScorOaspeti) {
-            oaspete.set_castig(2);
-            return oaspete.get_num();
-        } else {
-            gazda.set_castig(1);
-            oaspete.set_castig(1);
-            return "Egalitate";
-        }
-    }
-
-    std::pair<double, double> calculeaza_cote() {
-        int skillGazde = Gazda1.Skill_total();
-        int skillOaspeti = Oaspete1.Skill_total();
-        double totalSkill = skillGazde + skillOaspeti;
-        double cotaGazde = (totalSkill / skillGazde) * 1.5;
-        double cotaOaspeti = (totalSkill / skillOaspeti) * 1.5;
-        return {cotaGazde, cotaOaspeti};
-    }
-
-    void plaseaza_pariu(const Pariu &pariu) {
-        Pariuri.emplace_back(pariu);
-    }
-
-    void evalueaza_pariuri() {
-        std::string castigator = verifica_castigator(Gazda1, Oaspete1);
-        for (auto &pariu: Pariuri) {
-            if (pariu.getEchipaPariata() == castigator) {
-                pariu.setCastigator(true);
-                if (castigator == Gazda1.get_num())
-                    pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().first);
-                else if (castigator == Oaspete1.get_num())
-                    pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().second);
-            }
-        }
-    }
-
-    std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> &afisez() {
-        return FazaGol;
-    }
-
-    std::vector<Pariu> get_pariuri() const {
-        return Pariuri;
-    }
-
-};
-
-class Campionat_Liga_Nationala {
-    int NrEchipe, NrEtape;
-    std::vector<Echipa> echipe;
-    std::vector<Meci> meciuri;
-public:
-    Campionat_Liga_Nationala(int nrechipe, int nretape) : NrEchipe{nrechipe}, NrEtape{nretape}, echipe{}, meciuri{} {}
-
-    Campionat_Liga_Nationala(const Campionat_Liga_Nationala &other) : NrEchipe{other.NrEchipe}, NrEtape{other.NrEtape},
-                                                                      echipe{other.echipe}, meciuri{other.meciuri} {}
-
-    Campionat_Liga_Nationala &operator=(const Campionat_Liga_Nationala &other) {
-        NrEchipe = other.NrEchipe;
-        NrEtape = other.NrEtape;
-        echipe = other.echipe;
-        meciuri = other.meciuri;
-        return *this;
-    }
-
-    ~Campionat_Liga_Nationala() {}
-
-    friend std::ostream &operator<<(std::ostream &os, const Campionat_Liga_Nationala &m) {
-        os << "NrEchipe: " << m.NrEchipe << ", NrEtape: " << m.NrEtape << '\n';
-        for (auto it: m.echipe)
-            os << it.get_num() << '\n';
-        os << '\n';
-        return os;
-    }
-
-    void adaug_echipa(Echipa &ech) {
-        int var = ech.get_juc().size();
-        if (var < 1 || var >= 14)
-            throw eroare_numar_jucatori(var);
-        echipe.emplace_back(ech);
-    }
-
-    void adaug_meci(Meci &game) {
-        meciuri.emplace_back(game);
-    }
-};
 
 int main() {
     try {
@@ -647,7 +212,7 @@ int main() {
 
         std::cout << "Simulare meci campionat, detalii:" << meci2 << '\n';
 
-        auto job1 = [&bars, &meci2, &e3]() {
+        auto job1 = [&bars, &meci2, &e3, &one, &two]() {
             /*while (true) {
                 bars.tick<0>();
                 if (bars.is_completed<0>())
@@ -658,12 +223,15 @@ int main() {
                 if (it.first->getNameTeam() == e3.get_num()) {
                     bars.tick<0>();
                     //bar
-                    //std::this_thread::sleep_for(std::chrono::milliseconds(200));
+                    if (one > two)
+                        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                    else
+                        std::this_thread::sleep_for(std::chrono::milliseconds(200));
                 }
             }
         };
 
-        auto job2 = [&bars, &meci2, &e4]() {
+        auto job2 = [&bars, &meci2, &e4, &one, &two]() {
             /*while (true) {
                 bars.tick<1>();
                 if (bars.is_completed<1>())
@@ -673,7 +241,10 @@ int main() {
             for (auto &it: meci2.afisez()) {
                 if (it.first->getNameTeam() == e4.get_num()) {
                     bars.tick<1>();
-                    //std::this_thread::sleep_for(std::chrono::milliseconds(200));
+                    if (one > two)
+                        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+                    else
+                        std::this_thread::sleep_for(std::chrono::milliseconds(100));
                 }
             }
         };

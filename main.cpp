@@ -294,9 +294,8 @@ public:
     Meci(Echipa &gazda, Echipa &oaspete, const std::string &dataMeci,
          std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol_ = {},
          std::vector<Pariu> Pariuri_ = {}
-    ) : Gazda1(gazda), Oaspete1(oaspete), DataMeci(dataMeci),
+    ) : Gazda1(gazda), Oaspete1(oaspete), DataMeci(dataMeci), Locatie(gazda.get_arena()),
         FazaGol(std::move(FazaGol_)), Pariuri(std::move(Pariuri_)) {
-        Locatie = gazda.get_arena();
         ScorGazde = 0;
         ScorOaspeti = 0;
         Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);

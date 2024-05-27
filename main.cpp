@@ -284,31 +284,32 @@ public:
 };
 
 class Meci {
-    Echipa &Gazda;
-    Echipa &Oaspete;
+    Echipa &Gazda1;
+    Echipa &Oaspete1;
     std::string Rezultat, DataMeci, Locatie;
     int ScorGazde, ScorOaspeti;
     std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol;
-    std::vector<Pariu> &Pariuri;
+    std::vector<Pariu> Pariuri;
 public:
     Meci(Echipa &gazda, Echipa &oaspete, const std::string &dataMeci,
          std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol_ = {},
-         std::vector<Pariu> Pariuri_ = {}) : Gazda(gazda), Oaspete(oaspete), DataMeci(dataMeci),
-                                             FazaGol(std::move(FazaGol_)), Pariuri(Pariuri_) {
+         std::vector<Pariu> Pariuri_ = {}
+    ) : Gazda1(gazda), Oaspete1(oaspete), DataMeci(dataMeci),
+        FazaGol(std::move(FazaGol_)), Pariuri(std::move(Pariuri_)) {
         Locatie = gazda.get_arena();
         ScorGazde = 0;
         ScorOaspeti = 0;
         Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);
     }
 
-    Meci(const Meci &other) : Gazda{other.Gazda}, Oaspete{other.Oaspete}, Rezultat{other.Rezultat},
+    Meci(const Meci &other) : Gazda1{other.Gazda1}, Oaspete1{other.Oaspete1}, Rezultat{other.Rezultat},
                               DataMeci{other.DataMeci}, Locatie{other.Locatie}, ScorGazde{other.ScorGazde},
                               ScorOaspeti{other.ScorOaspeti}, FazaGol{other.FazaGol}, Pariuri{other.Pariuri} {}
 
     //Meci(const Meci& other) = default;
     Meci &operator=(const Meci &other) {
-        Gazda = other.Gazda;
-        Oaspete = other.Oaspete;
+        Gazda1 = other.Gazda1;
+        Oaspete1 = other.Oaspete1;
         Rezultat = other.Rezultat;
         DataMeci = other.DataMeci;
         Locatie = other.Locatie;
@@ -321,7 +322,7 @@ public:
     ~Meci() = default;
 
     friend std::ostream &operator<<(std::ostream &os, const Meci &m) {
-        os << "Gazde: " << m.Gazda.get_num() << ", Oaspeti: " << m.Oaspete.get_num() << ", Rezultat: " << m.Rezultat
+        os << "Gazde: " << m.Gazda1.get_num() << ", Oaspeti: " << m.Oaspete1.get_num() << ", Rezultat: " << m.Rezultat
            << ", DataMeci: " << m.DataMeci << ", Locatie: " << m.Locatie << '\n';
         return os;
     }
@@ -332,7 +333,7 @@ public:
         if (marcator && pasator) {
             FazaGol.emplace_back(std::make_pair(marcator, pasator));
             int ok = 0;
-            for (auto &it: Gazda.get_juc()) {
+            for (auto &it: Gazda1.get_juc()) {
                 if (it->getName() == marcator->getName()) {
                     marcator->adauga_gol(1);
                     it = marcator;
@@ -345,7 +346,7 @@ public:
             }
             if (ok == 0) {
                 ScorOaspeti++;
-                for (auto &it: Oaspete.get_juc()) {
+                for (auto &it: Oaspete1.get_juc()) {
                     if (it->getName() == marcator->getName()) {
                         marcator->adauga_gol(1);
                         it = marcator;
@@ -360,23 +361,23 @@ public:
         }
     }
 
-    std::string verifica_castigator(Echipa &Gazda, Echipa &Oaspete) const {
+    std::string verifica_castigator(Echipa &gazda, Echipa &oaspete) const {
         if (ScorGazde > ScorOaspeti) {
-            Gazda.set_castig(2);
-            return Gazda.get_num();
+            gazda.set_castig(2);
+            return gazda.get_num();
         } else if (ScorGazde < ScorOaspeti) {
-            Oaspete.set_castig(2);
-            return Oaspete.get_num();
+            oaspete.set_castig(2);
+            return oaspete.get_num();
         } else {
-            Gazda.set_castig(1);
-            Oaspete.set_castig(1);
+            gazda.set_castig(1);
+            oaspete.set_castig(1);
             return "Egalitate";
         }
     }
 
     std::pair<double, double> calculeaza_cote() {
-        int skillGazde = Gazda.Skill_total();
-        int skillOaspeti = Oaspete.Skill_total();
+        int skillGazde = Gazda1.Skill_total();
+        int skillOaspeti = Oaspete1.Skill_total();
         double totalSkill = skillGazde + skillOaspeti;
         double cotaGazde = (totalSkill / skillGazde) * 1.5;
         double cotaOaspeti = (totalSkill / skillOaspeti) * 1.5;
@@ -388,13 +389,13 @@ public:
     }
 
     void evalueaza_pariuri() {
-        std::string castigator = verifica_castigator(Gazda, Oaspete);
+        std::string castigator = verifica_castigator(Gazda1, Oaspete1);
         for (auto &pariu: Pariuri) {
             if (pariu.getEchipaPariata() == castigator) {
                 pariu.setCastigator(true);
-                if (castigator == Gazda.get_num())
+                if (castigator == Gazda1.get_num())
                     pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().first);
-                else if (castigator == Oaspete.get_num())
+                else if (castigator == Oaspete1.get_num())
                     pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().second);
             }
         }
@@ -497,7 +498,7 @@ int main() {
         std::cout << *a1 << '\n';
         std::cout << e1 << '\n';
         std::cout << '\n';
-        Meci meci1(e1, e2, "21-06-2024");
+        Meci meci1(e1, e2, "21-06-2024", {});
         meci1.adauga_faza_gol(j1, j2);
 
         Pariu pariu1("Ion Ion", "Dinamo", 100.3);

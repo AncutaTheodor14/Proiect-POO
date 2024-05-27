@@ -11,6 +11,7 @@
 #include "Pariu.h"
 #include "Campionat_Liga_Nationala.h"
 #include "Exceptii.h"
+#include "Doctor.h"
 
 int Echipa::nr_total_echipe = 0;
 
@@ -82,6 +83,9 @@ int main() {
         campionat.adaug_echipa(e2);
         campionat.adaug_meci(meci1);
         std::cout << campionat << '\n';
+
+        std::shared_ptr<Persoana> doc = std::make_shared<Doctor>("Alin Alin", "Dinamo", 1, "Kinetoterapeut", 6);
+        std::cout << *doc << '\n';
 
         /*j1->change_status();
         std::cout<<*j1<<'\n';

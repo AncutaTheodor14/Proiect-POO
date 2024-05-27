@@ -1,7 +1,9 @@
 # GameAlert
 
-Proiectul simulează meciurile dintr-un campionat de handbal, păstrând istoricul fiecăruia si realizând
-un clasament în funcție de numărul de puncte acumulate de fiecare echipă.
+Proiectul simulează meciurile dintr-un campionat de handbal cu ajutorul unei reprezentari grafice,
+păstrând istoricul fiecăruia si realizând un clasament în funcție de numărul de puncte acumulate de
+fiecare echipă. De asemenea, exista optiunea de a paria pe un meci, cota echipelor fiind determinata
+de skill-ul tuturor jucatorilor din acea echipa.
 
 ### Important!
 Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.

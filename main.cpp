@@ -86,6 +86,7 @@ int main() {
 
         std::shared_ptr<Persoana> doc = std::make_shared<Doctor>("Alin Alin", "Dinamo", 1, "Kinetoterapeut", 6);
         std::cout << *doc << '\n';
+        e1.verifica_Skill_jucatori(0);
 
         /*j1->change_status();
         std::cout<<*j1<<'\n';
@@ -94,181 +95,184 @@ int main() {
         Echipa e3("Baia Mare", "Lascar Pana Arena", 0, {});
         campionat.adaug_echipa(e3);*/
 
-        std::cout << "----------------------------------------------------------------------------------------------"
-                  << '\n' << '\n' << '\n';
+        // e1.verifica_Skill_jucatori(20);
+        //campionat.adaug_meci(meci1);
 
-        Echipa e3("Dinamo", "Stefan cel Mare", 0, {Antrenor{"Xavier Pascual", "Dinamo", 1, 3}.clone(),
-                                                   Jucator{"Luca1 Cindric", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Vladimir Ciupara", "Dinamo", 1, "portar", 4, 6, 3}.clone(),
-                                                   Jucator{"Luca1 Cindric1", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Luca1 Cindric2", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Luca1 Cindric3", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Luca1 Cindric4", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Luca1 Cindric5", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Luca1 Cindric6", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
-                                                   Jucator{"Luca1 Cindric7", "Dinamo", 1, "centru", 5, 3, 1}.clone()
-        });
-        Echipa::creare_Echipa();
-        Echipa e4("Constanta", "Dobrogea Arena", 0, {Antrenor{"George Buricea", "Constanta", 1, 5}.clone(),
-                                                     Jucator{"Vitaly Komogorov", "Constanta", 1, "inter stang", 3, 5,
-                                                             2}.clone(),
-                                                     Jucator{"Vasile Ion", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone(),
-                                                     Jucator{"Vasile Ion1", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone(),
-                                                     Jucator{"Vasile Ion2", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone(),
-                                                     Jucator{"Vasile Ion3", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone(),
-                                                     Jucator{"Vasile Ion4", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone(),
-                                                     Jucator{"Vasile Ion5", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone(),
-                                                     Jucator{"Vasile Ion6", "Constanta", 1, "extrema stanga", 7, 3,
-                                                             4}.clone()
-        });
-
-        std::shared_ptr<Persoana> j5 = std::make_shared<Jucator>("Luca1 Cindric", "Dinamo", 1, "centru", 5, 3, 1);
-        std::shared_ptr<Persoana> j6 = std::make_shared<Jucator>("Luca1 Cindric1", "Dinamo", 1, "centru", 5, 3, 1);
-        std::shared_ptr<Persoana> j7 = std::make_shared<Jucator>("Vasile Ion", "Constanta", 1, "extrema stanga", 7, 3,
-                                                                 4);
-        std::shared_ptr<Persoana> j8 = std::make_shared<Jucator>("Vasile Ion1", "Constanta", 1, "extrema stanga", 7, 3,
-                                                                 4);
-
-        Meci meci2(e3, e4, "30-06-2024");
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j5, j6);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-        meci2.adauga_faza_gol(j7, j8);
-
-        //std::string castigator = meci2.verifica_castigator(e3,e4);
-        int one = 0, two = 0;
-        for (auto &it: meci2.afisez()) {
-            if (it.first->getNameTeam() == e3.get_num()) {
-                one++;
-            } else
-                two++;
-        }
-        std::cout << one << " " << two << '\n';
-
-        using namespace indicators;
-        // Configure first progress bar
-        ProgressBar bar1{
-                option::BarWidth{70},
-                option::Start{"["},
-                option::Fill{"■"},
-                option::Lead{"■"},
-                option::Remainder{" "},
-                option::End{" ]"},
-                option::ForegroundColor{Color::yellow},
-                //option::ShowElapsedTime{true},
-                //option::ShowRemainingTime{true},
-                //option::PrefixText{e3.get_num() + "    "},
-                option::PrefixText{"Echipa 1: "},
-                option::FontStyles{std::vector<FontStyle>{FontStyle::bold}},
-                option::MaxProgress{one + two},
-                option::PostfixText{std::to_string(one)}
-        };
-
-        // Configure second progress bar
-
-        ProgressBar bar2{
-                option::BarWidth{70},
-                option::Start{"["},
-                option::Fill{"■"},
-                option::Lead{"■"},
-                //option::Fill{"="},
-                //option::Lead{">"},
-                option::Remainder{" "},
-                option::End{" ]"},
-                option::ForegroundColor{Color::cyan},
-                //option::ShowElapsedTime{true},
-                //option::ShowRemainingTime{true},
-                //option::PrefixText{e4.get_num() + " "},
-                option::PrefixText{"Echipa 2: "},
-                option::FontStyles{std::vector<FontStyle>{FontStyle::bold}},
-                option::MaxProgress{one + two},
-                option::PostfixText{std::to_string(two)}
-        };
-
-        // Construct MultiProgress object
-        indicators::MultiProgress<indicators::ProgressBar, 2> bars(bar1, bar2);
-
-        std::cout << "Simulare meci campionat, detalii:" << meci2 << '\n';
-
-        auto job1 = [&bars, &meci2, &e3, &one, &two]() {
-            /*while (true) {
-                bars.tick<0>();
-                if (bars.is_completed<0>())
-                    break;
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
-            }*/
-            for (auto &it: meci2.afisez()) {
-                if (it.first->getNameTeam() == e3.get_num()) {
-                    bars.tick<0>();
-                    //bar
-                    if (one > two)
-                        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-                    else
-                        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-                }
-            }
-        };
-
-        auto job2 = [&bars, &meci2, &e4, &one, &two]() {
-            /*while (true) {
-                bars.tick<1>();
-                if (bars.is_completed<1>())
-                    break;
-                std::this_thread::sleep_for(std::chrono::milliseconds(200));
-            }*/
-            for (auto &it: meci2.afisez()) {
-                if (it.first->getNameTeam() == e4.get_num()) {
-                    bars.tick<1>();
-                    if (one > two)
-                        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-                    else
-                        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-                }
-            }
-        };
-
-        std::thread first_job(job1);
-        std::thread second_job(job2);
-
-        first_job.join();
-        second_job.join();
-
-        return 0;
     }
-    catch (const eroare_transfer &e) {
-        std::cout << "Eroare transfer: " << e.what() << '\n';
+    catch (const eroare_echipa &e) {
+        std::cout << e.what() << '\n';
     }
-    catch (const eroare_numar_jucatori &e) {
-        std::cout << "Eroare numar jucatori: " << e.what() << '\n';
+    catch (const eroare_campionat &e) {
+        std::cout << e.what() << '\n';
     }
     catch (const std::exception &e) {
         std::cout << "Alta eroare" << e.what() << '\n';
     }
+
+    std::cout << "----------------------------------------------------------------------------------------------"
+              << '\n' << '\n' << '\n';
+
+    Echipa e3("Dinamo", "Stefan cel Mare", 0, {Antrenor{"Xavier Pascual", "Dinamo", 1, 3}.clone(),
+                                               Jucator{"Luca1 Cindric", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Vladimir Ciupara", "Dinamo", 1, "portar", 4, 6, 3}.clone(),
+                                               Jucator{"Luca1 Cindric1", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Luca1 Cindric2", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Luca1 Cindric3", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Luca1 Cindric4", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Luca1 Cindric5", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Luca1 Cindric6", "Dinamo", 1, "centru", 5, 3, 1}.clone(),
+                                               Jucator{"Luca1 Cindric7", "Dinamo", 1, "centru", 5, 3, 1}.clone()
+    });
+    Echipa::creare_Echipa();
+    Echipa e4("Constanta", "Dobrogea Arena", 0, {Antrenor{"George Buricea", "Constanta", 1, 5}.clone(),
+                                                 Jucator{"Vitaly Komogorov", "Constanta", 1, "inter stang", 3, 5,
+                                                         2}.clone(),
+                                                 Jucator{"Vasile Ion", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone(),
+                                                 Jucator{"Vasile Ion1", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone(),
+                                                 Jucator{"Vasile Ion2", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone(),
+                                                 Jucator{"Vasile Ion3", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone(),
+                                                 Jucator{"Vasile Ion4", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone(),
+                                                 Jucator{"Vasile Ion5", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone(),
+                                                 Jucator{"Vasile Ion6", "Constanta", 1, "extrema stanga", 7, 3,
+                                                         4}.clone()
+    });
+
+    std::shared_ptr<Persoana> j5 = std::make_shared<Jucator>("Luca1 Cindric", "Dinamo", 1, "centru", 5, 3, 1);
+    std::shared_ptr<Persoana> j6 = std::make_shared<Jucator>("Luca1 Cindric1", "Dinamo", 1, "centru", 5, 3, 1);
+    std::shared_ptr<Persoana> j7 = std::make_shared<Jucator>("Vasile Ion", "Constanta", 1, "extrema stanga", 7, 3,
+                                                             4);
+    std::shared_ptr<Persoana> j8 = std::make_shared<Jucator>("Vasile Ion1", "Constanta", 1, "extrema stanga", 7, 3,
+                                                             4);
+
+    Meci meci2(e3, e4, "30-06-2024");
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j5, j6);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+    meci2.adauga_faza_gol(j7, j8);
+
+    //std::string castigator = meci2.verifica_castigator(e3,e4);
+    int one = 0, two = 0;
+    for (auto &it: meci2.afisez()) {
+        if (it.first->getNameTeam() == e3.get_num()) {
+            one++;
+        } else
+            two++;
+    }
+    std::cout << one << " " << two << '\n';
+
+    using namespace indicators;
+    // Configure first progress bar
+    ProgressBar bar1{
+            option::BarWidth{70},
+            option::Start{"["},
+            option::Fill{"■"},
+            option::Lead{"■"},
+            option::Remainder{" "},
+            option::End{" ]"},
+            option::ForegroundColor{Color::yellow},
+            //option::ShowElapsedTime{true},
+            //option::ShowRemainingTime{true},
+            //option::PrefixText{e3.get_num() + "    "},
+            option::PrefixText{"Echipa 1: "},
+            option::FontStyles{std::vector<FontStyle>{FontStyle::bold}},
+            option::MaxProgress{one + two},
+            option::PostfixText{std::to_string(one)}
+    };
+
+    // Configure second progress bar
+
+    ProgressBar bar2{
+            option::BarWidth{70},
+            option::Start{"["},
+            option::Fill{"■"},
+            option::Lead{"■"},
+            //option::Fill{"="},
+            //option::Lead{">"},
+            option::Remainder{" "},
+            option::End{" ]"},
+            option::ForegroundColor{Color::cyan},
+            //option::ShowElapsedTime{true},
+            //option::ShowRemainingTime{true},
+            //option::PrefixText{e4.get_num() + " "},
+            option::PrefixText{"Echipa 2: "},
+            option::FontStyles{std::vector<FontStyle>{FontStyle::bold}},
+            option::MaxProgress{one + two},
+            option::PostfixText{std::to_string(two)}
+    };
+
+    // Construct MultiProgress object
+    indicators::MultiProgress<indicators::ProgressBar, 2> bars(bar1, bar2);
+
+    std::cout << "Simulare meci campionat, detalii:" << meci2 << '\n';
+
+    auto job1 = [&bars, &meci2, &e3, &one, &two]() {
+        /*while (true) {
+            bars.tick<0>();
+            if (bars.is_completed<0>())
+                break;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }*/
+        for (auto &it: meci2.afisez()) {
+            if (it.first->getNameTeam() == e3.get_num()) {
+                bars.tick<0>();
+                //bar
+                if (one > two)
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                else
+                    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            }
+        }
+    };
+
+    auto job2 = [&bars, &meci2, &e4, &one, &two]() {
+        /*while (true) {
+            bars.tick<1>();
+            if (bars.is_completed<1>())
+                break;
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        }*/
+        for (auto &it: meci2.afisez()) {
+            if (it.first->getNameTeam() == e4.get_num()) {
+                bars.tick<1>();
+                if (one > two)
+                    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+                else
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        }
+    };
+
+    std::thread first_job(job1);
+    std::thread second_job(job2);
+
+    first_job.join();
+    second_job.join();
+
     return 0;
 }

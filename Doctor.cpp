@@ -14,3 +14,11 @@ Doctor::Doctor(const std::string &nume, const std::string &echipa, bool transf, 
 std::shared_ptr<Persoana> Doctor::clone() const {
     return std::make_shared<Doctor>(*this);
 }
+
+double Doctor::cost_deplasare(int factor_urgenta, int distanta) const {
+    int cost_initial = 200 + 10 * aniExperienta + 2 * specializare.size();
+    double optional = 1;
+    if (distanta > 250)
+        optional += 200.50;
+    return cost_initial * factor_urgenta * optional;
+}

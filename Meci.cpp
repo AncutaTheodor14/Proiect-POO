@@ -110,3 +110,11 @@ Meci::afisez() {
 std::vector<Pariu> Meci::get_pariuri() const {
     return Pariuri;
 }
+
+std::string Meci::getData() const {
+    return DataMeci;
+}
+
+std::string Meci::getLocatie() const {
+    return Locatie;
+}

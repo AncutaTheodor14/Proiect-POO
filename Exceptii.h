@@ -22,6 +22,11 @@ public:
     explicit eroare_transfer(const std::string &Nume);
 };
 
+class eroare_regulament : public eroare_echipa {
+public:
+    explicit eroare_regulament(int val);
+};
+
 class eroare_campionat : public eroare_aplicatie {
 public:
     explicit eroare_campionat(const std::string &Mesaj);
@@ -30,6 +35,11 @@ public:
 class eroare_numar_jucatori : public eroare_campionat {
 public:
     explicit eroare_numar_jucatori(int numar);
+};
+
+class eroare_programare : public eroare_campionat {
+public:
+    explicit eroare_programare(const std::string &Mesaj);
 };
 
 

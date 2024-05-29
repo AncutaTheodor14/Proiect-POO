@@ -8,6 +8,8 @@
 #include<iostream>
 #include<vector>
 #include "Persoana.h"
+#include "Jucator.h"
+#include "Exceptii.h"
 
 class Echipa {
     static int nr_total_echipe;
@@ -16,12 +18,7 @@ class Echipa {
     std::vector<std::shared_ptr<Persoana>> membrii;
 public:
     explicit Echipa(const std::string &nume_e, const std::string &nume_a, int NrPuncte_,
-                    std::vector<std::shared_ptr<Persoana>> membrii_) : NumeEchipa{std::move(nume_e)},
-                                                                       NumeArenaProprie{std::move(nume_a)},
-                                                                       NrPuncte{std::move(NrPuncte_)},
-                                                                       membrii{std::move(membrii_)} {
-        nr_total_echipe++;
-    }
+                    std::vector<std::shared_ptr<Persoana>> membrii_);
 
     Echipa(const Echipa &other);
 
@@ -29,7 +26,7 @@ public:
 
     friend void swap(Echipa &e1, Echipa &e2);
 
-    ~Echipa() = default;
+    ~Echipa();
 
     friend std::ostream &operator<<(std::ostream &os, const Echipa &e);
 
@@ -48,6 +45,8 @@ public:
     void transfer_de_la_echipa(std::shared_ptr<Persoana> &p1);
 
     int Skill_total();
+
+    void verifica_Skill_jucatori(int skill_minim);
 };
 
 

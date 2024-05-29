@@ -37,3 +37,11 @@ void Jucator::Skill_Jucator() {
 void Jucator::antreneaza() {
     SkillGeneral += 2;
 }
+
+double Jucator::cost_deplasare(int factor_urgenta, int distanta) const {
+    double Cost_initial = 100 + 10 * SkillGeneral;
+    double optional = 1;
+    if (distanta > 500)
+        optional += 100;
+    return Cost_initial * optional * factor_urgenta;
+}

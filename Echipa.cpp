@@ -94,3 +94,24 @@ int Echipa::Skill_total() {
     }
     return suma;
 }
+
+Echipa::Echipa(const std::string &nume_e, const std::string &nume_a, int NrPuncte_,
+               std::vector<std::shared_ptr<Persoana>> membrii_) : NumeEchipa{std::move(nume_e)},
+                                                                  NumeArenaProprie{std::move(nume_a)},
+                                                                  NrPuncte{std::move(NrPuncte_)},
+                                                                  membrii{std::move(membrii_)} {
+    nr_total_echipe++;
+}
+
+Echipa::~Echipa() {
+    nr_total_echipe--;
+}
+
+void Echipa::verifica_Skill_jucatori(int skill_minim) {
+    for (const auto &player: membrii) {
+        std::shared_ptr<Jucator> jucator = std::dynamic_pointer_cast<Jucator>(player);
+        if (jucator && jucator->getskill() < skill_minim) {
+            throw eroare_regulament(skill_minim);
+        }
+    }
+}

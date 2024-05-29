@@ -38,5 +38,12 @@ void Campionat_Liga_Nationala::adaug_echipa(Echipa &ech) {
 }
 
 void Campionat_Liga_Nationala::adaug_meci(Meci &game) {
+    for (const auto &m: meciuri) {
+        if (m.getData() == game.getData() && m.getLocatie() == game.getLocatie()) {
+            throw eroare_programare("exista deja un meci programat in aceasta data si locatie");
+        }
+    }
     meciuri.emplace_back(game);
 }
+
+

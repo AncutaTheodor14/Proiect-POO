@@ -20,6 +20,7 @@ public:
     explicit Doctor(const std::string &nume, const std::string &echipa, bool transf, const std::string &spec,
                     int aniExp);
 
+    double cost_deplasare(int factor_urgenta, int distanta) const override;
     std::shared_ptr<Persoana> clone() const override;
 };
 

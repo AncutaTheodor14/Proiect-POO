@@ -53,6 +53,10 @@ public:
 
     std::vector<Pariu> get_pariuri() const;
 
+    std::string getData() const;
+
+    std::string getLocatie() const;
+
 };
 
 

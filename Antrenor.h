@@ -13,6 +13,7 @@ class Antrenor : public Persoana {
 public:
     explicit Antrenor(const std::string &Nume, const std::string &NE, bool transf, int EA);
 
+    double cost_deplasare(int factor_urgenta, int distanta) const override;
     std::shared_ptr<Persoana> clone() const override;
 
 private:

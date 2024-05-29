@@ -14,3 +14,11 @@ std::shared_ptr<Persoana> Antrenor::clone() const {
 void Antrenor::afisare(std::ostream &os) const {
     os << ". Are rolul de antrenor si a antrenat pana acum " << EchipeAntrenate << " echipe." << '\n';
 }
+
+double Antrenor::cost_deplasare(int factor_urgenta, int distanta) const {
+    double cost_initial = 90 + 20 * EchipeAntrenate;
+    double optional = 1;
+    if (distanta > 300)
+        optional += 150;
+    return cost_initial * optional * factor_urgenta;
+}

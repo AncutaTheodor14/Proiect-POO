@@ -114,6 +114,8 @@ add_executable(${PROJECT_NAME} main.cpp
         Campionat_Liga_Nationala.h
         Doctor.cpp
         Doctor.h
+        Psiholog.cpp
+        Psiholog.h
 )
 
 ###############################################################################

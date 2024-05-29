@@ -12,6 +12,7 @@
 #include "Campionat_Liga_Nationala.h"
 #include "Exceptii.h"
 #include "Doctor.h"
+#include "Psiholog.h"
 
 int Echipa::nr_total_echipe = 0;
 
@@ -88,6 +89,9 @@ int main() {
         std::cout << *doc << '\n';
         e1.verifica_Skill_jucatori(0);
         std::cout << j1->cost_deplasare(2, 300) << '\n';
+
+        std::shared_ptr<Persoana> psi = std::make_shared<Psiholog>("Dan Ursu", "Dinamo", 1, 4);
+        std::cout << *psi << '\n';
         /*j1->change_status();
         std::cout<<*j1<<'\n';
         e2.transfer_la_echipa(e2,j1);

@@ -15,11 +15,12 @@ private:
 
     virtual void afisare(std::ostream &) const;
 
-    virtual double cost_deplasare(int factor_urgenta, int distanta) const = 0;
 protected:
     Persoana(const Persoana &other) = default;
 
 public:
+    virtual double cost_deplasare(int factor_urgenta, int distanta) const = 0;
+
     Persoana &operator=(const Persoana &other) = default;
 
     explicit Persoana(const std::string &Nume1, const std::string &NE, bool transferabil_ = true);

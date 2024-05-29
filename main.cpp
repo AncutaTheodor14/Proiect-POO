@@ -87,7 +87,7 @@ int main() {
         std::shared_ptr<Persoana> doc = std::make_shared<Doctor>("Alin Alin", "Dinamo", 1, "Kinetoterapeut", 6);
         std::cout << *doc << '\n';
         e1.verifica_Skill_jucatori(0);
-
+        std::cout << j1->cost_deplasare(2, 300) << '\n';
         /*j1->change_status();
         std::cout<<*j1<<'\n';
         e2.transfer_la_echipa(e2,j1);

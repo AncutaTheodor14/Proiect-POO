@@ -64,14 +64,12 @@ public:
     std::string getLocatie() const;
 
     int get_cost_oaspeti() const {
-        int sum = 0, con = 0, factor;
-        if (con == 0)
-            factor = 1;
-        else
-            factor = 2;
-        con = 1 - con;
+        int sum = 0;
+        std::vector<int> factor = {1, 2, 3, 4, 5, 6, 7, 8};
+        int ind = rand() % factor.size();
+        int ales = factor[ind];
         for (const auto &it: Oaspete1.get_juc()) {
-            sum += it->clone()->cost_deplasare(factor, distanta_orase);
+            sum += it->clone()->cost_deplasare(ales, distanta_orase);
         }
         return sum;
     }

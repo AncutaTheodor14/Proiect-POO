@@ -15,14 +15,20 @@
 class Meci {
     Echipa &Gazda1;
     Echipa &Oaspete1;
-    std::string Rezultat, DataMeci, Locatie;
-    int ScorGazde, ScorOaspeti;
+    std::string DataMeci;
+    int distanta_orase;
+    std::string Locatie;
     std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol;
     std::vector<Pariu> Pariuri;
+    int ScorGazde, ScorOaspeti;
+    std::string Rezultat;
+
 public:
     Meci(Echipa &gazda, Echipa &oaspete, const std::string &dataMeci,
+         int distanta_orase_,
          std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol_ = {},
          std::vector<Pariu> Pariuri_ = {}) : Gazda1(gazda), Oaspete1(oaspete), DataMeci(dataMeci),
+                                             distanta_orase(distanta_orase_),
                                              Locatie(gazda.get_arena()),
                                              FazaGol(std::move(FazaGol_)), Pariuri(std::move(Pariuri_)) {
         ScorGazde = 0;
@@ -56,6 +62,19 @@ public:
     std::string getData() const;
 
     std::string getLocatie() const;
+
+    int get_cost_oaspeti() const {
+        int sum = 0, con = 0, factor;
+        if (con == 0)
+            factor = 1;
+        else
+            factor = 2;
+        con = 1 - con;
+        for (const auto &it: Oaspete1.get_juc()) {
+            sum += it->clone()->cost_deplasare(factor, distanta_orase);
+        }
+        return sum;
+    }
 
 };
 

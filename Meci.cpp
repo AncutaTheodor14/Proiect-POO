@@ -5,9 +5,10 @@
 #include "Meci.h"
 #include "Jucator.h"
 
-Meci::Meci(const Meci &other) : Gazda1{other.Gazda1}, Oaspete1{other.Oaspete1}, Rezultat{other.Rezultat},
-                                DataMeci{other.DataMeci}, Locatie{other.Locatie}, ScorGazde{other.ScorGazde},
-                                ScorOaspeti{other.ScorOaspeti}, FazaGol{other.FazaGol}, Pariuri{other.Pariuri} {}
+Meci::Meci(const Meci &other) : Gazda1{other.Gazda1}, Oaspete1{other.Oaspete1}, DataMeci{other.DataMeci},
+                                distanta_orase(other.distanta_orase), Locatie{other.Locatie},
+                                FazaGol{other.FazaGol}, Pariuri{other.Pariuri}, ScorGazde{other.ScorGazde},
+                                ScorOaspeti{other.ScorOaspeti}, Rezultat{other.Rezultat} {}
 
 Meci &Meci::operator=(const Meci &other) {
     Gazda1 = other.Gazda1;
@@ -17,6 +18,7 @@ Meci &Meci::operator=(const Meci &other) {
     Locatie = other.Locatie;
     ScorGazde = other.ScorGazde;
     ScorOaspeti = other.ScorOaspeti;
+    distanta_orase = other.distanta_orase;
     FazaGol = other.FazaGol;
     return *this;
 }

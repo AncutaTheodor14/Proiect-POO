@@ -59,7 +59,7 @@ int main() {
         std::cout << *a1 << '\n';
         std::cout << e1 << '\n';
         std::cout << '\n';
-        Meci meci1(e1, e2, "21-06-2024", {});
+        Meci meci1(e1, e2, "21-06-2024", 300);
         meci1.adauga_faza_gol(j1, j2);
 
         Pariu pariu1("Ion Ion", "Dinamo", 100.3);
@@ -101,6 +101,7 @@ int main() {
 
         // e1.verifica_Skill_jucatori(20);
         //campionat.adaug_meci(meci1);
+        std::cout << meci1.get_cost_oaspeti() << '\n';
 
     }
     catch (const eroare_echipa &e) {
@@ -112,7 +113,6 @@ int main() {
     catch (const std::exception &e) {
         std::cout << "Alta eroare" << e.what() << '\n';
     }
-
     std::cout << "----------------------------------------------------------------------------------------------"
               << '\n' << '\n' << '\n';
 
@@ -154,7 +154,7 @@ int main() {
     std::shared_ptr<Persoana> j8 = std::make_shared<Jucator>("Vasile Ion1", "Constanta", 1, "extrema stanga", 7, 3,
                                                              4);
 
-    Meci meci2(e3, e4, "30-06-2024");
+    Meci meci2(e3, e4, "30-06-2024", 300);
     meci2.adauga_faza_gol(j5, j6);
     meci2.adauga_faza_gol(j7, j8);
     meci2.adauga_faza_gol(j7, j8);

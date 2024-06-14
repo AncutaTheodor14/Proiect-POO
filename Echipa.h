@@ -47,6 +47,7 @@ public:
     int Skill_total();
 
     void verifica_Skill_jucatori(int skill_minim);
+
 };
 
 

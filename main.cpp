@@ -13,6 +13,7 @@
 #include "Exceptii.h"
 #include "Doctor.h"
 #include "Psiholog.h"
+#include "PersoanaFactory.h"
 
 int Echipa::nr_total_echipe = 0;
 
@@ -120,6 +121,10 @@ int main() {
     }
     std::cout << "----------------------------------------------------------------------------------------------"
               << '\n' << '\n' << '\n';
+
+    std::shared_ptr<Persoana> extrema = PersoanaFactory::createExtrema();
+    std::shared_ptr<Persoana> portar = PersoanaFactory::createPortar();
+    std::shared_ptr<Persoana> AntrenorPrincipal = PersoanaFactory::createAntrenorPrincipal();
 
     Echipa e3("Dinamo", "Stefan cel Mare", 0, {Antrenor{"Xavier Pascual", "Dinamo", 1, 3}.clone(),
                                                Jucator{"Luca1 Cindric", "Dinamo", 1, "centru", 5, 3, 1}.clone(),

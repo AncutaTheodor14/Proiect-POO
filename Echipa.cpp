@@ -6,6 +6,7 @@
 #include "Antrenor.h"
 #include "Jucator.h"
 #include "Exceptii.h"
+#include "PersoanaFactory.h"
 
 Echipa::Echipa(const Echipa &other) : NumeEchipa{other.NumeEchipa}, NumeArenaProprie{other.NumeArenaProprie},
                                       NrPuncte{other.NrPuncte} {
@@ -68,6 +69,9 @@ void Echipa::transfer_la_echipa(const Echipa &team, std::shared_ptr<Persoana> &p
         membrii.emplace_back(antrenor1);
     }
     p1->change_team(team.get_num());
+    std::shared_ptr<Persoana> extrema = PersoanaFactory::createExtrema();
+    membrii.emplace_back(extrema);
+    extrema->change_team(team.get_num());
 }
 
 void Echipa::transfer_de_la_echipa(std::shared_ptr<Persoana> &p1) {

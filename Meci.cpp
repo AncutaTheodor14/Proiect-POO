@@ -7,7 +7,8 @@
 
 Meci::Meci(const Meci &other) : Gazda1{other.Gazda1}, Oaspete1{other.Oaspete1}, DataMeci{other.DataMeci},
                                 distanta_orase(other.distanta_orase), Locatie{other.Locatie},
-                                FazaGol{other.FazaGol}, Pariuri{other.Pariuri}, ScorGazde{other.ScorGazde},
+                                FazaGol{other.FazaGol}, Pariuri1{other.Pariuri1}, Pariuri2{other.Pariuri2},
+                                ScorGazde{other.ScorGazde},
                                 ScorOaspeti{other.ScorOaspeti}, Rezultat{other.Rezultat} {}
 
 Meci &Meci::operator=(const Meci &other) {
@@ -20,6 +21,8 @@ Meci &Meci::operator=(const Meci &other) {
     ScorOaspeti = other.ScorOaspeti;
     distanta_orase = other.distanta_orase;
     FazaGol = other.FazaGol;
+    Pariuri1 = other.Pariuri1;
+    Pariuri2 = other.Pariuri2;
     return *this;
 }
 
@@ -86,19 +89,29 @@ std::pair<double, double> Meci::calculeaza_cote() {
     return {cotaGazde, cotaOaspeti};
 }
 
-void Meci::plaseaza_pariu(const Pariu &pariu) {
-    Pariuri.emplace_back(pariu);
+void Meci::plaseaza_pariu_jetoane(const Pariu<int> &pariu) {
+    Pariuri1.emplace_back(pariu);
 }
 
 void Meci::evalueaza_pariuri() {
     std::string castigator = verifica_castigator(Gazda1, Oaspete1);
-    for (auto &pariu: Pariuri) {
+    for (auto &pariu: Pariuri1) {
         if (pariu.getEchipaPariata() == castigator) {
             pariu.setCastigator(true);
             if (castigator == Gazda1.get_num())
                 pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().first);
             else if (castigator == Oaspete1.get_num())
                 pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().second);
+        }
+    }
+    for (auto &pariu: Pariuri2) {
+        if (pariu.getEchipaPariata() == castigator) {
+            pariu.setCastigator(true);
+            int valoare_curenta_jeton = rand() % 5000;
+            if (castigator == Gazda1.get_num())
+                pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().first * valoare_curenta_jeton);
+            else if (castigator == Oaspete1.get_num())
+                pariu.suma_Castigata(pariu.getSumaPariata() * calculeaza_cote().second * valoare_curenta_jeton);
         }
     }
 }
@@ -109,8 +122,8 @@ Meci::afisez() {
     return FazaGol;
 }
 
-std::vector<Pariu> Meci::get_pariuri() const {
-    return Pariuri;
+std::vector<Pariu<int>> Meci::get_pariuri_jetoane() const {
+    return Pariuri1;
 }
 
 std::string Meci::getData() const {
@@ -119,4 +132,12 @@ std::string Meci::getData() const {
 
 std::string Meci::getLocatie() const {
     return Locatie;
+}
+
+std::vector<Pariu<double>> Meci::get_pariuri_suma() const {
+    return Pariuri2;
+}
+
+void Meci::plaseaza_pariu_suma(const Pariu<double> &pariu) {
+    Pariuri2.emplace_back(pariu);
 }

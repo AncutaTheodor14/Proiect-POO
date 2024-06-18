@@ -45,5 +45,3 @@ void Campionat_Liga_Nationala::adaug_meci(Meci &game) {
     }
     meciuri.emplace_back(game);
 }
-
-

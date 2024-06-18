@@ -106,7 +106,6 @@ add_executable(${PROJECT_NAME} main.cpp
         Jucator.h
         Echipa.cpp
         Echipa.h
-        Pariu.cpp
         Pariu.h
         Meci.cpp
         Meci.h

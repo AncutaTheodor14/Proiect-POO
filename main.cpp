@@ -62,15 +62,20 @@ int main() {
         Meci meci1(e1, e2, "21-06-2024", 300);
         meci1.adauga_faza_gol(j1, j2);
 
-        Pariu pariu1("Ion Ion", "Dinamo", 100.3);
-        Pariu pariu2("Vasile Vasile", "Constanta", 100.5);
-        meci1.plaseaza_pariu(pariu1);
-        meci1.plaseaza_pariu(pariu2);
+        Pariu<int> pariu1("Ion Ion", "Dinamo", 25);
+        Pariu<double> pariu2("Vasile Vasile", "Constanta", 100.5);
+        meci1.plaseaza_pariu_jetoane(pariu1);
+        meci1.plaseaza_pariu_suma(pariu2);
 
         std::cout << meci1 << '\n';
         std::cout << "Echipa castigatoare: " << meci1.verifica_castigator(e1, e2) << '\n' << '\n';
         meci1.evalueaza_pariuri();
-        for (const auto &pariu: meci1.get_pariuri()) {
+        for (const auto &pariu: meci1.get_pariuri_suma()) {
+            std::cout << "Parior: " << pariu.getNumeParior() << ", Echipa: " << pariu.getEchipaPariata() << ", Suma: "
+                      << pariu.getSumaPariata() << ", Castigator: " << (pariu.isCastigator() ? "Da" : "Nu")
+                      << ", Suma castigata: " << pariu.val_suma_Castigata() << '\n' << '\n';
+        }
+        for (const auto &pariu: meci1.get_pariuri_jetoane()) {
             std::cout << "Parior: " << pariu.getNumeParior() << ", Echipa: " << pariu.getEchipaPariata() << ", Suma: "
                       << pariu.getSumaPariata() << ", Castigator: " << (pariu.isCastigator() ? "Da" : "Nu")
                       << ", Suma castigata: " << pariu.val_suma_Castigata() << '\n' << '\n';

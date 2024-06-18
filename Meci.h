@@ -19,7 +19,8 @@ class Meci {
     int distanta_orase;
     std::string Locatie;
     std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol;
-    std::vector<Pariu> Pariuri;
+    std::vector<Pariu<int>> Pariuri1;//pariez jetoane
+    std::vector<Pariu<double>> Pariuri2;//pariez sume
     int ScorGazde, ScorOaspeti;
     std::string Rezultat;
 
@@ -27,10 +28,17 @@ public:
     Meci(Echipa &gazda, Echipa &oaspete, const std::string &dataMeci,
          int distanta_orase_,
          std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> FazaGol_ = {},
-         std::vector<Pariu> Pariuri_ = {}) : Gazda1(gazda), Oaspete1(oaspete), DataMeci(dataMeci),
+         std::vector<Pariu<int>> Pariuri_ = {}, std::vector<Pariu<double>> _Pariuri = {}) : Gazda1(gazda),
+                                                                                            Oaspete1(oaspete),
+                                                                                            DataMeci(dataMeci),
                                              distanta_orase(distanta_orase_),
                                              Locatie(gazda.get_arena()),
-                                             FazaGol(std::move(FazaGol_)), Pariuri(std::move(Pariuri_)) {
+                                                                                            FazaGol(std::move(
+                                                                                                    FazaGol_)),
+                                                                                            Pariuri1(std::move(
+                                                                                                    Pariuri_)),
+                                                                                            Pariuri2(std::move(
+                                                                                                    _Pariuri)) {
         ScorGazde = 0;
         ScorOaspeti = 0;
         Rezultat = std::to_string(ScorGazde) + '-' + std::to_string(ScorOaspeti);
@@ -51,13 +59,17 @@ public:
 
     std::pair<double, double> calculeaza_cote();
 
-    void plaseaza_pariu(const Pariu &pariu);
+    void plaseaza_pariu_jetoane(const Pariu<int> &pariu);
+
+    void plaseaza_pariu_suma(const Pariu<double> &pariu);
 
     void evalueaza_pariuri();
 
     std::vector<std::pair<std::shared_ptr<Persoana>, std::shared_ptr<Persoana>>> &afisez();
 
-    std::vector<Pariu> get_pariuri() const;
+    std::vector<Pariu<int>> get_pariuri_jetoane() const;
+
+    std::vector<Pariu<double>> get_pariuri_suma() const;
 
     std::string getData() const;
 

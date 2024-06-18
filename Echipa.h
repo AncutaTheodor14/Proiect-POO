@@ -16,6 +16,7 @@ class Echipa {
     std::string NumeEchipa, NumeArenaProprie;
     int NrPuncte;
     std::vector<std::shared_ptr<Persoana>> membrii;
+    bool inUse = false;
 public:
     explicit Echipa(const std::string &nume_e, const std::string &nume_a, int NrPuncte_,
                     std::vector<std::shared_ptr<Persoana>> membrii_);
@@ -47,6 +48,18 @@ public:
     int Skill_total();
 
     void verifica_Skill_jucatori(int skill_minim);
+
+    void activate() {
+        inUse = true;
+    }
+
+    void deactivate() {
+        inUse = false;
+    }
+
+    bool isAvailable() const {
+        return !inUse;
+    }
 
 };
 

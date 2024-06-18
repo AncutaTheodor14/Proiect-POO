@@ -8,28 +8,48 @@
 #include<iostream>
 #include<string>
 
+template<typename T>
 class Pariu {
     std::string NumeParior;
     std::string EchipaPariata;
-    double SumaPariata = 0;
-    double sumaCastigata = 0;
+    T SumaPariata;
+    T sumaCastigata;
     bool castigator;
 public:
-    Pariu(const std::string &nume, const std::string &echipa, double suma, double su = 0, bool cast = false);
+    Pariu(const std::string &nume, const std::string &echipa, T suma, T su = 0, bool cast = false) : NumeParior(nume),
+                                                                                                     EchipaPariata(
+                                                                                                             echipa),
+                                                                                                     SumaPariata(suma),
+                                                                                                     sumaCastigata(su),
+                                                                                                     castigator(cast) {}
 
-    std::string getNumeParior() const;
+    std::string getNumeParior() const {
+        return NumeParior;
+    }
 
-    void suma_Castigata(double &&x);
+    void suma_Castigata(T &&x) {
+        sumaCastigata = x;
+    }
 
-    double val_suma_Castigata() const;
+    T val_suma_Castigata() const {
+        return sumaCastigata;
+    }
 
-    std::string getEchipaPariata() const;
+    std::string getEchipaPariata() const {
+        return EchipaPariata;
+    }
 
-    double getSumaPariata() const;
+    T getSumaPariata() const {
+        return SumaPariata;
+    }
 
-    bool isCastigator() const;
+    bool isCastigator() const {
+        return castigator;
+    }
 
-    void setCastigator(bool status);
+    void setCastigator(bool status) {
+        castigator = status;
+    }
 };
 
 

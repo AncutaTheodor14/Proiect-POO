@@ -295,6 +295,7 @@ int main() {
         auto echipa2 = pool.getEchipa();
         Meci m10(*echipa1, *echipa2, "30-05-2024", 500);
         std::cout << m10;
+        std::cout << m10;
         pool.releaseEchipa(echipa1);
         pool.releaseEchipa(echipa2);
     } catch (const std::runtime_error &e) {

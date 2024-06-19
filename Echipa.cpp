@@ -109,6 +109,7 @@ Echipa::Echipa(const std::string &nume_e, const std::string &nume_a, int NrPunct
 
 Echipa::~Echipa() {
     nr_total_echipe--;
+    close();
 }
 
 void Echipa::verifica_Skill_jucatori(int skill_minim) {

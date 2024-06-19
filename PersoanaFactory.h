@@ -78,7 +78,7 @@ public:
         } else if (p.rol == "antrenor") {
             return std::make_shared<Antrenor>(p.nume, p.echipa, p.transferabil, p.echipeAntrenate);
         }
-        throw std::runtime_error("Rol necunoscut!");
+        throw std::runtime_error("Alt rol!");
     }
 };
 

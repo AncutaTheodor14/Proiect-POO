@@ -117,6 +117,8 @@ add_executable(${PROJECT_NAME} main.cpp
         Psiholog.h
         PersoanaFactory.cpp
         PersoanaFactory.h
+        EchipaPool.cpp
+        EchipaPool.h
 )
 
 ###############################################################################

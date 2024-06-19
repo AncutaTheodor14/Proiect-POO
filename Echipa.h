@@ -16,10 +16,18 @@ class Echipa {
     std::string NumeEchipa, NumeArenaProprie;
     int NrPuncte;
     std::vector<std::shared_ptr<Persoana>> membrii;
-    bool inUse = false;
+    bool inUse = false, opened = false;
 public:
     explicit Echipa(const std::string &nume_e, const std::string &nume_a, int NrPuncte_,
                     std::vector<std::shared_ptr<Persoana>> membrii_);
+
+    std::shared_ptr<Echipa> clone() const { return std::make_shared<Echipa>(*this); }
+
+    void open() { opened = true; }
+
+    bool e_activ() const { return opened; }
+
+    void close() { opened = false; }
 
     Echipa(const Echipa &other);
 

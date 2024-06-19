@@ -2,7 +2,7 @@
 
 Proiectul simulează meciurile dintr-un campionat de handbal cu ajutorul unei reprezentari grafice,
 păstrând istoricul fiecăruia si realizând un clasament în funcție de numărul de puncte acumulate de
-fiecare echipă. De asemenea, exista optiunea de a paria pe un meci, cota echipelor fiind determinata
+fiecare echipă. De asemenea, exista optiunea de a paria pe un meci (prin jetoane sau bani), cota echipelor fiind determinata
 de skill-ul tuturor jucatorilor din acea echipa.
 
 ### Important!
